@@ -1,0 +1,6 @@
+2025-08-21 13:38:59 | streamlit_app | INFO | 🚀 Starting RAG Indexing Comparison App
+2025-08-21 13:38:59 | streamlit_app | INFO | 📄 2 files uploaded: ['NIPS-2017-attention-is-all-you-need-Paper.pdf', 'Test Confluence and Jira Tickets.docx']
+2025-08-21 13:38:59 | streamlit_app | INFO | 🚀 Run comparison button clicked for query: 'What's the BLEU score of the transformers?...'
+2025-08-21 13:38:59 | streamlit_app | INFO | 🔧 Executing 4 configurations: ['openai-1536d_fixed-500c-50o_vector', 'openai-1536d_fixed-500c-50o_hybrid', 'cohere-1536d_fixed-500c-50o_vector', 'cohere-1536d_fixed-500c-50o_hybrid']
+2025-08-21 13:38:59 | streamlit_app | INFO | 🔄 Initializing RAG pipeline...
+2025-08-21 13:38:59 | rag_pipeline | INFO | 🔧 Initializing RAG Pipeline components...

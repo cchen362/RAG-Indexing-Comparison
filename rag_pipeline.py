@@ -16,6 +16,7 @@ from document_processor import DocumentProcessor, DocumentChunker
 from embedding_pipeline import EmbeddingPipeline
 from retrieval_system import RetrievalSystem
 from sheets_logger import SheetsLogger
+from logger_config import get_logger
 
 # Load environment variables
 load_dotenv()
@@ -24,6 +25,9 @@ class RAGPipeline:
     """Main RAG pipeline orchestrator"""
     
     def __init__(self):
+        self.logger = get_logger('rag_pipeline')
+        self.logger.info("🔧 Initializing RAG Pipeline components...")
+        
         self.document_processor = DocumentProcessor()
         self.document_chunker = DocumentChunker()
         self.embedding_pipeline = EmbeddingPipeline()
@@ -78,21 +82,29 @@ class RAGPipeline:
         run_id = str(uuid.uuid4())[:8]
         start_time = time.time()
         
+        self.logger.info(f"📋 Executing config: {config['name']} (run_id: {run_id})")
+        self.logger.debug(f"📋 Query: {query}")
+        self.logger.debug(f"📋 Documents: {len(documents)} files")
+        
         timing = {}
         
         # Step 1: Document Chunking
         chunking_start = time.time()
+        self.logger.debug(f"🔪 Starting chunking with strategy: {config['chunking']['type']}")
         chunks = self.document_chunker.chunk_documents(documents, config['chunking'])
         timing['chunking_time'] = time.time() - chunking_start
+        self.logger.info(f"🔪 Chunking completed: {len(chunks)} chunks in {timing['chunking_time']:.2f}s")
         
         if not chunks:
             raise ValueError("No chunks created from documents")
         
         # Step 2: Create Embeddings
         embedding_start = time.time()
+        self.logger.debug(f"🔢 Starting embeddings with: {config['embedding']['provider']}")
         embedding_result = self.embedding_pipeline.create_embeddings(chunks, config)
         enriched_chunks = embedding_result['chunks']
         timing['embedding_time'] = embedding_result['metadata']['total_processing_time']
+        self.logger.info(f"🔢 Embeddings completed: {len(enriched_chunks)} chunks in {timing['embedding_time']:.2f}s")
         
         # Step 3: Build Retrieval Index
         indexing_start = time.time()

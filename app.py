@@ -15,6 +15,13 @@ from datetime import datetime
 # Import RAG pipeline components
 from rag_pipeline import RAGPipeline
 
+# Import logging
+from logger_config import setup_logging, get_logger
+
+# Setup logging
+setup_logging(log_to_file=True)
+logger = get_logger('streamlit_app')
+
 # Load environment variables
 load_dotenv()
 
@@ -60,6 +67,7 @@ def initialize_session_state():
     """Initialize session state variables"""
     if 'run_id' not in st.session_state:
         st.session_state.run_id = str(uuid.uuid4())[:8]
+        logger.info(f"🆔 New session initialized with run_id: {st.session_state.run_id}")
     if 'uploaded_docs' not in st.session_state:
         st.session_state.uploaded_docs = []
     if 'pipeline_results' not in st.session_state:
@@ -196,12 +204,14 @@ def render_document_upload():
     
     if uploaded_files:
         st.success(f"✅ {len(uploaded_files)} file(s) uploaded successfully")
+        logger.info(f"📄 {len(uploaded_files)} files uploaded: {[f.name for f in uploaded_files]}")
         
         # Display uploaded files
         with st.expander("📋 Uploaded Files", expanded=False):
             for file in uploaded_files:
                 file_size = len(file.getvalue()) / (1024 * 1024)  # MB
                 st.write(f"• **{file.name}** ({file_size:.2f} MB)")
+                logger.debug(f"📄 File: {file.name} ({file_size:.2f} MB)")
         
         # Store in session state
         st.session_state.uploaded_docs = uploaded_files
@@ -241,14 +251,20 @@ def render_query_section():
     
     # Validation messages
     if run_comparison:
+        logger.info(f"🚀 Run comparison button clicked for query: '{query[:50]}...'")
         if not query:
             st.error("Please enter a query")
+            logger.warning("❌ No query provided")
         elif not st.session_state.uploaded_docs:
             st.error("Please upload documents first")
+            logger.warning("❌ No documents uploaded")
         elif not get_active_configurations():
             st.error("Please select at least one configuration")
+            logger.warning("❌ No configurations selected")
         else:
             # Execute pipeline comparison
+            configs = get_active_configurations()
+            logger.info(f"🔧 Executing {len(configs)} configurations: {[c['name'] for c in configs]}")
             execute_pipeline_comparison(query, parallel_runs)
     
     return query, run_comparison
@@ -263,10 +279,13 @@ def execute_pipeline_comparison(query, parallel_runs):
     # Initialize pipeline
     if 'rag_pipeline' not in st.session_state:
         try:
+            logger.info("🔄 Initializing RAG pipeline...")
             st.session_state.rag_pipeline = RAGPipeline()
             st.success("✅ Pipeline initialized successfully")
+            logger.info("✅ Pipeline initialized successfully")
         except Exception as e:
             st.error(f"❌ Failed to initialize pipeline: {str(e)}")
+            logger.error(f"❌ Pipeline initialization failed: {str(e)}")
             return
     
     pipeline = st.session_state.rag_pipeline
@@ -301,19 +320,27 @@ def execute_pipeline_comparison(query, parallel_runs):
                 
                 # Execute single configuration
                 try:
+                    logger.info(f"⚡ Starting execution for config: {config['name']}")
                     progress_tracker.update_step("Processing documents...")
                     single_result = pipeline._execute_single_config(query, processed_docs, config, top_k)
                     results.append(single_result)
                     
+                    # Log success
+                    timing = single_result.get('timing', {})
+                    logger.info(f"✅ Config {config['name']} completed in {timing.get('total_time', 0):.2f}s")
+                    
                     # Log to sheets in background
                     try:
                         pipeline.sheets_logger.log_pipeline_result(single_result)
+                        logger.debug(f"📊 Results logged to Google Sheets for {config['name']}")
                     except Exception as e:
                         st.warning(f"Failed to log to Google Sheets: {str(e)}")
+                        logger.warning(f"📊 Failed to log to Google Sheets: {str(e)}")
                         
                 except Exception as e:
                     st.error(f"Failed to execute config {config['name']}: {str(e)}")
                     st.error(f"Error details: {type(e).__name__}: {str(e)}")
+                    logger.error(f"❌ Config {config['name']} failed: {type(e).__name__}: {str(e)}")
                     error_result = {
                         'config': config,
                         'query': query,
@@ -438,6 +465,8 @@ def render_individual_result(result):
 
 def main():
     """Main application"""
+    logger.info("🚀 Starting RAG Indexing Comparison App")
+    
     # Initialize session state
     initialize_session_state()
     
@@ -448,6 +477,7 @@ def main():
     # Check if setup validation was run
     if not os.path.exists('.env'):
         st.error("⚠️ Environment not configured. Please run `python setup_validation.py` first.")
+        logger.error("❌ .env file not found")
         st.stop()
     
     # Render sidebar
