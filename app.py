@@ -117,7 +117,9 @@ def render_sidebar():
             
             vector_only = st.checkbox("Vector-only (cosine similarity)", value=True, key="vector_only")
             bm25_only = st.checkbox("BM25-only (keyword-based)", value=False, key="bm25_only")
-            hybrid_retrieval = st.checkbox("Hybrid (70% vector + 30% BM25)", value=True, key="hybrid_retrieval")
+            hybrid_30 = st.checkbox("Hybrid (30% vector + 70% BM25)", value=False, key="hybrid_30")
+            hybrid_50 = st.checkbox("Hybrid (50% vector + 50% BM25)", value=False, key="hybrid_50")
+            hybrid_70 = st.checkbox("Hybrid (70% vector + 30% BM25)", value=True, key="hybrid_70")
             
             # Top-k results
             top_k = st.slider("Top-k results to retrieve", 1, 20, 5, 1, key="top_k")
@@ -161,39 +163,39 @@ def get_active_configurations():
         max_sentences = st.session_state.get('max_sentences', 5)
         chunking_strategies.append(('sentence', f"{max_sentences}s"))
     
-    # Get selected retrieval methods
+    # Get selected retrieval methods with their specific alpha values
     retrievers = []
     if st.session_state.get('vector_only', False):
-        retrievers.append('vector')
+        retrievers.append(('vector', None))
     if st.session_state.get('bm25_only', False):
-        retrievers.append('bm25')
-    if st.session_state.get('hybrid_retrieval', False):
-        retrievers.append('hybrid')
+        retrievers.append(('bm25', None))
+    if st.session_state.get('hybrid_30', False):
+        retrievers.append(('hybrid', 0.3))
+    if st.session_state.get('hybrid_50', False):
+        retrievers.append(('hybrid', 0.5))
+    if st.session_state.get('hybrid_70', False):
+        retrievers.append(('hybrid', 0.7))
     
     # Generate all combinations
-    hybrid_alphas = [0.3, 0.5, 0.7]  # Different α values for hybrid search
-    
     for embed_provider, embed_model, embed_dim in embeddings:
         for chunk_type, chunk_params in chunking_strategies:
-            for retriever in retrievers:
-                if retriever == 'hybrid':
-                    # Create separate configs for each α value
-                    for alpha in hybrid_alphas:
-                        config_name = f"{embed_provider}-{embed_dim}d_{chunk_type}-{chunk_params}_{retriever}_a{alpha}"
-                        configs.append({
-                            'name': config_name,
-                            'embedding': {
-                                'provider': embed_provider,
-                                'model': embed_model, 
-                                'dimension': embed_dim
-                            },
-                            'chunking': {
-                                'type': chunk_type,
-                                'params': chunk_params
-                            },
-                            'retriever': retriever,
-                            'hybrid_alpha': alpha
-                        })
+            for retriever, alpha in retrievers:
+                if retriever == 'hybrid' and alpha is not None:
+                    config_name = f"{embed_provider}-{embed_dim}d_{chunk_type}-{chunk_params}_{retriever}_a{alpha}"
+                    configs.append({
+                        'name': config_name,
+                        'embedding': {
+                            'provider': embed_provider,
+                            'model': embed_model, 
+                            'dimension': embed_dim
+                        },
+                        'chunking': {
+                            'type': chunk_type,
+                            'params': chunk_params
+                        },
+                        'retriever': retriever,
+                        'hybrid_alpha': alpha
+                    })
                 else:
                     # Regular config for non-hybrid retrievers
                     config_name = f"{embed_provider}-{embed_dim}d_{chunk_type}-{chunk_params}_{retriever}"
