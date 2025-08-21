@@ -347,9 +347,6 @@ def execute_pipeline_comparison(query, parallel_runs):
     except Exception as e:
         st.error(f"Pipeline execution failed: {str(e)}")
         return
-    
-    # Display results
-    render_results()
 
 def render_results():
     """Render comparison results"""
