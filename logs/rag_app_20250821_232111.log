@@ -1,0 +1,39 @@
+2025-08-21 23:21:11 | streamlit_app | INFO | 🚀 Starting RAG Indexing Comparison App
+2025-08-21 23:21:11 | streamlit_app | INFO | 📄 1 files uploaded: ['Test Confluence and Jira Tickets.docx']
+2025-08-21 23:21:11 | streamlit_app | INFO | 🚀 Run comparison button clicked for query: 'What are the Confluence articles we have and provi...'
+2025-08-21 23:21:11 | streamlit_app | INFO | 🔧 Executing 4 configurations: ['openai-1536d_fixed-800c-100o_vector', 'openai-1536d_fixed-800c-100o_hybrid', 'cohere-1536d_fixed-800c-100o_vector', 'cohere-1536d_fixed-800c-100o_hybrid']
+2025-08-21 23:21:11 | streamlit_app | INFO | 🔄 Initializing RAG pipeline...
+2025-08-21 23:21:11 | rag_pipeline | INFO | 🔧 Initializing RAG Pipeline components...
+2025-08-21 23:21:13 | streamlit_app | INFO | ✅ Pipeline initialized successfully
+2025-08-21 23:21:13 | streamlit_app | INFO | ⚡ Starting execution for config: openai-1536d_fixed-800c-100o_vector
+2025-08-21 23:21:13 | rag_pipeline | INFO | 📋 Executing config: openai-1536d_fixed-800c-100o_vector (run_id: d39376f4)
+2025-08-21 23:21:13 | rag_pipeline | INFO | 🔪 Chunking completed: 32 chunks in 0.00s
+2025-08-21 23:21:15 | httpx | INFO | HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-08-21 23:21:15 | rag_pipeline | INFO | 🔢 Embeddings completed: 32 chunks in 2.17s
+2025-08-21 23:21:16 | httpx | INFO | HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-08-21 23:21:20 | httpx | INFO | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-21 23:21:20 | streamlit_app | INFO | ✅ Config openai-1536d_fixed-800c-100o_vector completed in 6.43s
+2025-08-21 23:21:20 | streamlit_app | INFO | ⚡ Starting execution for config: openai-1536d_fixed-800c-100o_hybrid
+2025-08-21 23:21:20 | rag_pipeline | INFO | 📋 Executing config: openai-1536d_fixed-800c-100o_hybrid (run_id: cbf497dc)
+2025-08-21 23:21:20 | rag_pipeline | INFO | 🔪 Chunking completed: 32 chunks in 0.00s
+2025-08-21 23:21:22 | httpx | INFO | HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-08-21 23:21:23 | rag_pipeline | INFO | 🔢 Embeddings completed: 32 chunks in 2.38s
+2025-08-21 23:21:23 | httpx | INFO | HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-08-21 23:21:28 | httpx | INFO | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-21 23:21:28 | streamlit_app | INFO | ✅ Config openai-1536d_fixed-800c-100o_hybrid completed in 7.69s
+2025-08-21 23:21:29 | streamlit_app | INFO | ⚡ Starting execution for config: cohere-1536d_fixed-800c-100o_vector
+2025-08-21 23:21:29 | rag_pipeline | INFO | 📋 Executing config: cohere-1536d_fixed-800c-100o_vector (run_id: a872c028)
+2025-08-21 23:21:29 | rag_pipeline | INFO | 🔪 Chunking completed: 32 chunks in 0.00s
+2025-08-21 23:21:29 | httpx | INFO | HTTP Request: POST https://api.cohere.com/v2/embed "HTTP/1.1 200 OK"
+2025-08-21 23:21:30 | rag_pipeline | INFO | 🔢 Embeddings completed: 32 chunks in 1.06s
+2025-08-21 23:21:30 | httpx | INFO | HTTP Request: POST https://api.cohere.com/v2/embed "HTTP/1.1 200 OK"
+2025-08-21 23:21:34 | httpx | INFO | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-21 23:21:34 | streamlit_app | INFO | ✅ Config cohere-1536d_fixed-800c-100o_vector completed in 5.70s
+2025-08-21 23:21:35 | streamlit_app | INFO | ⚡ Starting execution for config: cohere-1536d_fixed-800c-100o_hybrid
+2025-08-21 23:21:35 | rag_pipeline | INFO | 📋 Executing config: cohere-1536d_fixed-800c-100o_hybrid (run_id: 9f6a2aba)
+2025-08-21 23:21:35 | rag_pipeline | INFO | 🔪 Chunking completed: 32 chunks in 0.00s
+2025-08-21 23:21:35 | httpx | INFO | HTTP Request: POST https://api.cohere.com/v2/embed "HTTP/1.1 200 OK"
+2025-08-21 23:21:35 | rag_pipeline | INFO | 🔢 Embeddings completed: 32 chunks in 0.58s
+2025-08-21 23:21:36 | httpx | INFO | HTTP Request: POST https://api.cohere.com/v2/embed "HTTP/1.1 200 OK"
+2025-08-21 23:21:38 | httpx | INFO | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-21 23:21:38 | streamlit_app | INFO | ✅ Config cohere-1536d_fixed-800c-100o_hybrid completed in 3.43s

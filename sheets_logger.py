@@ -68,18 +68,21 @@ class SheetsLogger:
             'Chunk Strategy',
             'Chunk Params',
             'Retriever',
+            'Hybrid Alpha',
             'Total Time (s)',
-            'Indexing Time (s)',
-            'Retrieval Time (s)',
+            'Embedding Time (s)',
+            'Embedding Tokens',
+            'Retrieval Candidates',
+            'Retrieval Latency (ms)',
             'Generation Time (s)',
+            'Generation Input Tokens',
+            'Generation Output Tokens',
             'Response',
             'Retrieved Chunks',
             'Config Name',
             'Document Count',
             'Total Chunks',
             'Top K',
-            'Vector Score',
-            'BM25 Score',
             'Metadata'
         ]
         
@@ -123,18 +126,21 @@ class SheetsLogger:
                 config.get('chunking', {}).get('type', ''),
                 config.get('chunking', {}).get('params', ''),
                 config.get('retriever', ''),
+                config.get('hybrid_alpha', ''),
                 timing.get('total_time', 0),
-                timing.get('indexing_time', 0),
-                timing.get('retrieval_time', 0),
+                timing.get('embedding_time', 0),
+                result.get('embedding_tokens', 0),
+                result.get('retrieval_candidates', 0),
+                timing.get('retrieval_latency_ms', 0),
                 timing.get('generation_time', 0),
+                result.get('generation_input_tokens', 0),
+                result.get('generation_output_tokens', 0),
                 result.get('response', ''),
                 self._format_retrieved_chunks(retrieved_chunks),
                 config.get('name', ''),
                 result.get('document_count', 0),
                 result.get('total_chunks', 0),
                 result.get('top_k', 5),
-                result.get('vector_score', ''),
-                result.get('bm25_score', ''),
                 json.dumps(result.get('metadata', {}), default=str)
             ]
             
@@ -330,7 +336,7 @@ def test_sheets_logger():
     logger = SheetsLogger()
     
     if not logger.test_connection():
-        print("❌ Sheets connection test failed")
+        print("Sheets connection test failed")
         return False
     
     # Test data
@@ -353,10 +359,14 @@ def test_sheets_logger():
         },
         'timing': {
             'total_time': 2.5,
-            'indexing_time': 0.8,
-            'retrieval_time': 0.4,
+            'embedding_time': 0.8,
+            'retrieval_latency_ms': 15,
             'generation_time': 1.3
         },
+        'embedding_tokens': 8,
+        'retrieval_candidates': 50,
+        'generation_input_tokens': 2847,
+        'generation_output_tokens': 312,
         'response': 'Machine learning is a test response.',
         'retrieved_chunks': [
             {'document_id': 'test.pdf', 'retrieval_score': 0.85, 'text': 'Test chunk content'},
@@ -370,14 +380,14 @@ def test_sheets_logger():
     try:
         success = logger.log_pipeline_result(test_result)
         if success:
-            print("✅ Test result logged successfully")
+            print("Test result logged successfully")
             return True
         else:
-            print("❌ Failed to log test result")
+            print("Failed to log test result")
             return False
             
     except Exception as e:
-        print(f"❌ Test failed: {str(e)}")
+        print(f"Test failed: {str(e)}")
         return False
 
 

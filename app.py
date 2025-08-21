@@ -171,23 +171,45 @@ def get_active_configurations():
         retrievers.append('hybrid')
     
     # Generate all combinations
+    hybrid_alphas = [0.3, 0.5, 0.7]  # Different α values for hybrid search
+    
     for embed_provider, embed_model, embed_dim in embeddings:
         for chunk_type, chunk_params in chunking_strategies:
             for retriever in retrievers:
-                config_name = f"{embed_provider}-{embed_dim}d_{chunk_type}-{chunk_params}_{retriever}"
-                configs.append({
-                    'name': config_name,
-                    'embedding': {
-                        'provider': embed_provider,
-                        'model': embed_model, 
-                        'dimension': embed_dim
-                    },
-                    'chunking': {
-                        'type': chunk_type,
-                        'params': chunk_params
-                    },
-                    'retriever': retriever
-                })
+                if retriever == 'hybrid':
+                    # Create separate configs for each α value
+                    for alpha in hybrid_alphas:
+                        config_name = f"{embed_provider}-{embed_dim}d_{chunk_type}-{chunk_params}_{retriever}_a{alpha}"
+                        configs.append({
+                            'name': config_name,
+                            'embedding': {
+                                'provider': embed_provider,
+                                'model': embed_model, 
+                                'dimension': embed_dim
+                            },
+                            'chunking': {
+                                'type': chunk_type,
+                                'params': chunk_params
+                            },
+                            'retriever': retriever,
+                            'hybrid_alpha': alpha
+                        })
+                else:
+                    # Regular config for non-hybrid retrievers
+                    config_name = f"{embed_provider}-{embed_dim}d_{chunk_type}-{chunk_params}_{retriever}"
+                    configs.append({
+                        'name': config_name,
+                        'embedding': {
+                            'provider': embed_provider,
+                            'model': embed_model, 
+                            'dimension': embed_dim
+                        },
+                        'chunking': {
+                            'type': chunk_type,
+                            'params': chunk_params
+                        },
+                        'retriever': retriever
+                    })
     
     return configs
 
@@ -415,20 +437,28 @@ def render_individual_result(result):
         st.write(f"• Embedding: {config['embedding']['provider']} ({config['embedding']['dimension']}d)")
         st.write(f"• Chunking: {config['chunking']['type']} ({config['chunking']['params']})")
         st.write(f"• Retriever: {config['retriever']}")
+        if config.get('hybrid_alpha'):
+            st.write(f"• Hybrid alpha: {config['hybrid_alpha']}")
         st.write(f"• Documents: {result.get('document_count', 0)}")
         st.write(f"• Total Chunks: {result.get('total_chunks', 0)}")
     
     with col2:
         st.markdown("**Performance:**")
-        st.metric("Total Time", f"{timing.get('total_time', 0):.2f}s")
-        
-        # Timing breakdown
-        st.markdown("**Breakdown:**")
-        st.write(f"• Chunking: {timing.get('chunking_time', 0):.2f}s")
+        st.write(f"• Total Time: {timing.get('total_time', 0):.2f}s")
         st.write(f"• Embedding: {timing.get('embedding_time', 0):.2f}s")
-        st.write(f"• Indexing: {timing.get('indexing_time', 0):.2f}s")
-        st.write(f"• Retrieval: {timing.get('retrieval_time', 0):.2f}s") 
+        
+        # Enhanced retrieval info
+        retrieval_candidates = result.get('retrieval_candidates', 0)
+        retrieval_latency = timing.get('retrieval_latency_ms', 0)
+        alpha_info = f", a={config.get('hybrid_alpha', 'N/A')}" if config.get('retriever') == 'hybrid' else ""
+        st.write(f"• Retrieval: {retrieval_candidates} candidates, {retrieval_latency:.1f}ms{alpha_info}")
+        
         st.write(f"• Generation: {timing.get('generation_time', 0):.2f}s")
+        
+        st.markdown("**Cost:**")
+        st.write(f"• Embedding tokens: {result.get('embedding_tokens', 0)}")
+        st.write(f"• Generation input tokens: {result.get('generation_input_tokens', 0)}")
+        st.write(f"• Generation output tokens: {result.get('generation_output_tokens', 0)}")
     
     # Response
     st.markdown("**Generated Response:**")

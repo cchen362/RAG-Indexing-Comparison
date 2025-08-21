@@ -72,6 +72,9 @@ class OpenAIEmbedding(EmbeddingProvider):
             
             embeddings_array = np.array(all_embeddings)
             
+            # Apply L2 normalization
+            embeddings_array = embeddings_array / np.linalg.norm(embeddings_array, axis=1, keepdims=True)
+            
             end_time = time.time()
             
             metadata = {
@@ -124,6 +127,9 @@ class CohereEmbedding(EmbeddingProvider):
                 all_embeddings.extend(batch_embeddings)
             
             embeddings_array = np.array(all_embeddings)
+            
+            # Apply L2 normalization
+            embeddings_array = embeddings_array / np.linalg.norm(embeddings_array, axis=1, keepdims=True)
             
             # Verify dimension matches expected
             actual_dimension = embeddings_array.shape[1]
@@ -273,12 +279,8 @@ class EmbeddingPipeline:
     
     def calculate_similarity(self, query_embedding: np.ndarray, chunk_embeddings: np.ndarray) -> np.ndarray:
         """Calculate cosine similarity between query and chunk embeddings"""
-        # Normalize embeddings
-        query_norm = query_embedding / np.linalg.norm(query_embedding)
-        chunks_norm = chunk_embeddings / np.linalg.norm(chunk_embeddings, axis=1, keepdims=True)
-        
-        # Calculate cosine similarity
-        similarities = np.dot(chunks_norm, query_norm)
+        # Both embeddings are already L2 normalized, so dot product = cosine similarity
+        similarities = np.dot(chunk_embeddings, query_embedding)
         
         return similarities
     

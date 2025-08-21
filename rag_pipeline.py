@@ -122,15 +122,21 @@ class RAGPipeline:
         retrieved_chunks, retrieval_metadata = self.retrieval_system.search(
             query, query_embedding, config, top_k
         )
-        timing['retrieval_time'] = time.time() - retrieval_start
+        retrieval_end = time.time()
+        timing['retrieval_time'] = retrieval_end - retrieval_start
+        timing['retrieval_latency_ms'] = (retrieval_end - retrieval_start) * 1000  # Convert to milliseconds
         
         # Step 6: Generate Response
         generation_start = time.time()
-        response = self._generate_response(query, retrieved_chunks)
+        response, generation_tokens = self._generate_response(query, retrieved_chunks)
         timing['generation_time'] = time.time() - generation_start
         
         # Calculate total time
         timing['total_time'] = time.time() - start_time
+        
+        # Extract token counts
+        embedding_tokens = query_result['metadata'].get('total_tokens', 0)
+        retrieval_candidates = len(retrieved_chunks)
         
         # Prepare result
         result = {
@@ -144,6 +150,10 @@ class RAGPipeline:
             'document_count': len(documents),
             'total_chunks': len(chunks),
             'top_k': top_k,
+            'embedding_tokens': embedding_tokens,
+            'retrieval_candidates': retrieval_candidates,
+            'generation_input_tokens': generation_tokens.get('input_tokens', 0),
+            'generation_output_tokens': generation_tokens.get('output_tokens', 0),
             'success': True,
             'metadata': {
                 'embedding_metadata': embedding_result['metadata'],
@@ -155,13 +165,13 @@ class RAGPipeline:
         
         return result
     
-    def _generate_response(self, query: str, retrieved_chunks: List[Dict[str, Any]]) -> str:
+    def _generate_response(self, query: str, retrieved_chunks: List[Dict[str, Any]]) -> tuple:
         """Generate response using GPT-4o-mini based on retrieved chunks"""
         if not self.openai_client:
-            return "Response generation unavailable (OpenAI API key not configured)"
+            return "Response generation unavailable (OpenAI API key not configured)", {'input_tokens': 0, 'output_tokens': 0}
         
         if not retrieved_chunks:
-            return "No relevant information found in the documents to answer your question."
+            return "No relevant information found in the documents to answer your question.", {'input_tokens': 0, 'output_tokens': 0}
         
         try:
             # Prepare context from retrieved chunks
@@ -201,10 +211,17 @@ Answer:"""
                 temperature=0.1
             )
             
-            return response.choices[0].message.content.strip()
+            # Extract token usage
+            usage = response.usage
+            token_info = {
+                'input_tokens': usage.prompt_tokens,
+                'output_tokens': usage.completion_tokens
+            }
+            
+            return response.choices[0].message.content.strip(), token_info
             
         except Exception as e:
-            return f"Error generating response: {str(e)}"
+            return f"Error generating response: {str(e)}", {'input_tokens': 0, 'output_tokens': 0}
     
     def get_pipeline_stats(self, results: List[Dict[str, Any]]) -> Dict[str, Any]:
         """Calculate pipeline performance statistics"""

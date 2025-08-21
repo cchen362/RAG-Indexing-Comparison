@@ -408,7 +408,8 @@ class RetrievalSystem:
             
         elif retriever_type == 'hybrid':
             dimension = config['embedding']['dimension']
-            retriever = HybridRetriever()
+            hybrid_alpha = config.get('hybrid_alpha', 0.7)
+            retriever = HybridRetriever(vector_weight=hybrid_alpha, bm25_weight=1.0-hybrid_alpha)
             index_metadata = retriever.build_index(chunks, dimension)
             
         else:
@@ -452,7 +453,8 @@ class RetrievalSystem:
         chunking = config['chunking']
         retriever = config['retriever']
         
-        return f"{embedding['provider']}_{embedding['dimension']}_{chunking['type']}_{chunking['params']}_{retriever}"
+        hybrid_suffix = f"_a{config.get('hybrid_alpha', 0.7)}" if retriever == 'hybrid' else ""
+        return f"{embedding['provider']}_{embedding['dimension']}_{chunking['type']}_{chunking['params']}_{retriever}{hybrid_suffix}"
     
     def get_retriever_info(self) -> Dict[str, Any]:
         """Get information about available retrievers"""
