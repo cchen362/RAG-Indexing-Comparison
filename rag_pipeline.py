@@ -46,13 +46,17 @@ class RAGPipeline:
         """Process uploaded documents and extract text"""
         return self.document_processor.process_uploaded_files(uploaded_files)
     
-    def execute_pipeline(self, query: str, documents: List[Dict[str, Any]], configs: List[Dict[str, Any]], top_k: int = 5) -> List[Dict[str, Any]]:
+    def execute_pipeline(self, query: str, documents: List[Dict[str, Any]], configs: List[Dict[str, Any]], top_k: int = 5, session_run_id: str = None) -> List[Dict[str, Any]]:
         """Execute the complete RAG pipeline for all configurations"""
         results = []
         
+        # Use provided session run ID or generate one if not provided
+        if session_run_id is None:
+            session_run_id = str(uuid.uuid4())[:8]
+        
         for config in configs:
             try:
-                result = self._execute_single_config(query, documents, config, top_k)
+                result = self._execute_single_config(query, documents, config, top_k, session_run_id)
                 results.append(result)
                 
                 # Log to Google Sheets in background
@@ -68,7 +72,7 @@ class RAGPipeline:
                 error_result = {
                     'config': config,
                     'query': query,
-                    'run_id': str(uuid.uuid4())[:8],
+                    'run_id': session_run_id,
                     'timestamp': datetime.now(),
                     'error': str(e),
                     'success': False
@@ -77,12 +81,11 @@ class RAGPipeline:
         
         return results
     
-    def _execute_single_config(self, query: str, documents: List[Dict[str, Any]], config: Dict[str, Any], top_k: int) -> Dict[str, Any]:
+    def _execute_single_config(self, query: str, documents: List[Dict[str, Any]], config: Dict[str, Any], top_k: int, session_run_id: str) -> Dict[str, Any]:
         """Execute pipeline for a single configuration"""
-        run_id = str(uuid.uuid4())[:8]
         start_time = time.time()
         
-        self.logger.info(f"📋 Executing config: {config['name']} (run_id: {run_id})")
+        self.logger.info(f"📋 Executing config: {config['name']} (run_id: {session_run_id})")
         self.logger.debug(f"📋 Query: {query}")
         self.logger.debug(f"📋 Documents: {len(documents)} files")
         
@@ -134,15 +137,17 @@ class RAGPipeline:
         # Calculate total time
         timing['total_time'] = time.time() - start_time
         
-        # Extract token counts
-        embedding_tokens = query_result['metadata'].get('total_tokens', 0)
+        # Extract token counts (document embedding + query embedding)
+        document_embedding_tokens = embedding_result['metadata'].get('total_tokens', 0)
+        query_embedding_tokens = query_result['metadata'].get('total_tokens', 0)
+        embedding_tokens = document_embedding_tokens + query_embedding_tokens
         retrieval_candidates = len(retrieved_chunks)
         
         # Prepare result
         result = {
             'config': config,
             'query': query,
-            'run_id': run_id,
+            'run_id': session_run_id,
             'timestamp': datetime.now(),
             'timing': timing,
             'response': response,

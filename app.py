@@ -286,6 +286,10 @@ def render_query_section():
             st.error("Please select at least one configuration")
             logger.warning("❌ No configurations selected")
         else:
+            # Generate new Run ID for this comparison
+            st.session_state.run_id = str(uuid.uuid4())[:8]
+            logger.info(f"🆔 New comparison started with run_id: {st.session_state.run_id}")
+            
             # Execute pipeline comparison
             configs = get_active_configurations()
             logger.info(f"🔧 Executing {len(configs)} configurations: {[c['name'] for c in configs]}")
@@ -346,7 +350,7 @@ def execute_pipeline_comparison(query, parallel_runs):
                 try:
                     logger.info(f"⚡ Starting execution for config: {config['name']}")
                     progress_tracker.update_step("Processing documents...")
-                    single_result = pipeline._execute_single_config(query, processed_docs, config, top_k)
+                    single_result = pipeline._execute_single_config(query, processed_docs, config, top_k, st.session_state.run_id)
                     results.append(single_result)
                     
                     # Log success
@@ -452,8 +456,7 @@ def render_individual_result(result):
         # Enhanced retrieval info
         retrieval_candidates = result.get('retrieval_candidates', 0)
         retrieval_latency = timing.get('retrieval_latency_ms', 0)
-        alpha_info = f", a={config.get('hybrid_alpha', 'N/A')}" if config.get('retriever') == 'hybrid' else ""
-        st.write(f"• Retrieval: {retrieval_candidates} candidates, {retrieval_latency:.1f}ms{alpha_info}")
+        st.write(f"• Retrieval: {retrieval_candidates} candidates, {retrieval_latency:.1f}ms")
         
         st.write(f"• Generation: {timing.get('generation_time', 0):.2f}s")
         

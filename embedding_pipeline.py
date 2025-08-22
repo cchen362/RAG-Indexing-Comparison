@@ -111,6 +111,7 @@ class CohereEmbedding(EmbeddingProvider):
             # Process in batches to avoid API limits
             batch_size = 96  # Cohere allows up to 96 texts per request
             all_embeddings = []
+            total_tokens = 0
             
             for i in range(0, len(texts), batch_size):
                 batch_texts = texts[i:i + batch_size]
@@ -125,6 +126,11 @@ class CohereEmbedding(EmbeddingProvider):
                 
                 batch_embeddings = response.embeddings.float_
                 all_embeddings.extend(batch_embeddings)
+                
+                # Extract token usage from meta.billed_units
+                if hasattr(response, 'meta') and hasattr(response.meta, 'billed_units'):
+                    if hasattr(response.meta.billed_units, 'input_tokens'):
+                        total_tokens += int(response.meta.billed_units.input_tokens)
             
             embeddings_array = np.array(all_embeddings)
             
@@ -145,6 +151,7 @@ class CohereEmbedding(EmbeddingProvider):
                 'model': self.model_name,
                 'dimension': embeddings_array.shape[1],
                 'processing_time': end_time - start_time,
+                'total_tokens': total_tokens,
                 'texts_count': len(texts),
                 'batch_count': (len(texts) + batch_size - 1) // batch_size,
                 'input_type': input_type
