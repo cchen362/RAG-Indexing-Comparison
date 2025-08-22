@@ -23,342 +23,168 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Sophisticated Amex GBT Enterprise Design
+# SOPHISTICATED AMEX STYLING - REBUILT SAFELY
 def load_amex_styling():
-    """Apply sophisticated, accessible Amex GBT enterprise styling"""
+    """Sophisticated Amex GBT styling - rebuilt with surgical precision"""
     st.markdown("""
     <style>
-    /* Import Professional Typography */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-    
-    /* Sophisticated Amex GBT Color System */
+    /* Amex GBT Professional Color System */
     :root {
         --amex-deep-blue: #00175A;
         --amex-bright-blue: #006FCF;
         --amex-charcoal: #152835;
         --amex-light-gray: #F8F9FA;
-        --amex-medium-gray: #6C757D;
-        --amex-white: #FFFFFF;
         --amex-powder-blue: #EDF4FB;
+        --amex-white: #FFFFFF;
         --amex-accent-gold: #FFD700;
         --amex-success: #28A745;
-        --amex-shadow: rgba(0, 23, 90, 0.08);
-        --amex-shadow-deep: rgba(0, 23, 90, 0.15);
     }
     
-    /* Professional Typography */
-    * {
-        font-family: 'Inter', 'Arial', sans-serif !important;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
-    
-    /* Clean Application Background */
+    /* SAFE: App Background */
     .stApp {
-        background-color: var(--amex-light-gray) !important;
+        background-color: var(--amex-light-gray);
     }
     
-    /* Elegant Main Content Container */
+    /* SAFE: Main Content Container */
     .main .block-container {
-        background: var(--amex-white) !important;
-        border-radius: 12px !important;
-        box-shadow: 0 4px 12px var(--amex-shadow) !important;
-        padding: 2.5rem !important;
-        margin: 1.5rem !important;
-        border: 1px solid #E9ECEF !important;
-        max-width: 100% !important;
+        background: var(--amex-white);
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 23, 90, 0.08);
+        padding: 2.5rem;
+        margin: 1.5rem;
+        border: 1px solid #E9ECEF;
     }
     
-    /* Refined Sidebar Design */
+    /* SAFE: Sidebar Styling */
     section[data-testid="stSidebar"] {
-        background: linear-gradient(180deg, var(--amex-deep-blue) 0%, #1a3261 100%) !important;
-        border-right: 3px solid var(--amex-bright-blue) !important;
+        background: linear-gradient(180deg, var(--amex-deep-blue) 0%, var(--amex-charcoal) 100%);
+        border-right: 3px solid var(--amex-bright-blue);
     }
     
-    /* Sidebar Content Wrapper */
     section[data-testid="stSidebar"] > div {
-        background: transparent !important;
-        padding: 1rem !important;
+        padding: 1rem;
     }
     
-    /* Sidebar Typography - High Contrast */
+    /* SAFE: Sidebar Typography */
     section[data-testid="stSidebar"] * {
-        color: var(--amex-white) !important;
+        color: white;
     }
     
-    /* Sidebar Main Title */
     section[data-testid="stSidebar"] h1 {
-        color: var(--amex-accent-gold) !important;
-        font-size: 1.5rem !important;
-        font-weight: 600 !important;
-        text-align: center !important;
-        padding: 1rem 0 !important;
-        border-bottom: 2px solid var(--amex-accent-gold) !important;
-        margin-bottom: 1.5rem !important;
+        color: var(--amex-accent-gold);
+        text-align: center;
+        border-bottom: 2px solid var(--amex-accent-gold);
+        padding-bottom: 1rem;
+        margin-bottom: 1.5rem;
     }
     
-    /* Sidebar Section Headers */
     section[data-testid="stSidebar"] h3 {
-        color: #B3D9FF !important;
-        font-size: 1.1rem !important;
-        font-weight: 600 !important;
-        border-bottom: 1px solid var(--amex-bright-blue) !important;
-        padding-bottom: 0.5rem !important;
-        margin: 1.5rem 0 0.75rem 0 !important;
+        color: #B3D9FF;
+        border-bottom: 1px solid var(--amex-bright-blue);
+        padding-bottom: 0.5rem;
+        margin: 1.5rem 0 0.75rem 0;
     }
     
-    /* Sidebar Descriptions - Elegant & Readable */
+    /* SAFE: Sidebar Description Boxes */
     section[data-testid="stSidebar"] em {
-        color: #E3F2FD !important;
-        font-style: italic !important;
-        font-size: 0.85rem !important;
-        display: block !important;
-        margin: 0.5rem 0 1rem 0 !important;
-        padding: 0.75rem !important;
-        background: rgba(255, 255, 255, 0.08) !important;
-        border-radius: 6px !important;
-        border-left: 3px solid #4FC3F7 !important;
-        line-height: 1.4 !important;
+        color: #E3F2FD;
+        display: block;
+        margin: 0.5rem 0 1rem 0;
+        padding: 0.75rem;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 6px;
+        border-left: 3px solid #4FC3F7;
+        line-height: 1.4;
     }
     
-    /* Clean Sidebar Controls */
+    /* SAFE: Sidebar Controls */
     section[data-testid="stSidebar"] .stCheckbox {
-        background: rgba(255, 255, 255, 0.06) !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        border-radius: 6px !important;
-        padding: 0.6rem !important;
-        margin: 0.4rem 0 !important;
-        transition: all 0.2s ease !important;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 6px;
+        padding: 0.6rem;
+        margin: 0.4rem 0;
     }
     
-    section[data-testid="stSidebar"] .stCheckbox:hover {
-        background: rgba(255, 255, 255, 0.1) !important;
-        border-color: var(--amex-bright-blue) !important;
-    }
-    
-    section[data-testid="stSidebar"] .stCheckbox label {
-        color: var(--amex-white) !important;
-        font-weight: 400 !important;
-        font-size: 0.9rem !important;
-    }
-    
-    /* Sidebar Sliders */
     section[data-testid="stSidebar"] .stSlider {
-        background: rgba(255, 255, 255, 0.04) !important;
-        border-radius: 6px !important;
-        padding: 0.8rem !important;
-        margin: 0.5rem 0 !important;
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: 6px;
+        padding: 0.8rem;
+        margin: 0.5rem 0;
     }
     
-    section[data-testid="stSidebar"] .stSlider label {
-        color: #E3F2FD !important;
-        font-weight: 400 !important;
-        font-size: 0.85rem !important;
-    }
-    
-    /* Remove Config Group Styling */
-    .config-group {
-        background: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-        padding: 0 !important;
-        margin: 0 !important;
-    }
-    
-    /* Main Content Headers */
+    /* SAFE: Main Content Headers */
     .main h1 {
-        color: var(--amex-deep-blue) !important;
-        font-size: 2.5rem !important;
-        font-weight: 700 !important;
-        text-align: center !important;
-        margin-bottom: 0.5rem !important;
-        letter-spacing: -0.02em !important;
+        color: var(--amex-deep-blue);
+        text-align: center;
     }
     
     .main h2 {
-        color: var(--amex-deep-blue) !important;
-        font-size: 1.5rem !important;
-        font-weight: 600 !important;
-        margin: 2rem 0 1rem 0 !important;
-        border-bottom: 2px solid var(--amex-bright-blue) !important;
-        padding-bottom: 0.5rem !important;
+        color: var(--amex-deep-blue);
+        border-bottom: 2px solid var(--amex-bright-blue);
+        padding-bottom: 0.5rem;
     }
     
-    .main h3 {
-        color: var(--amex-charcoal) !important;
-        font-size: 1.25rem !important;
-        font-weight: 600 !important;
-        margin: 1.5rem 0 0.75rem 0 !important;
-    }
-    
-    /* Main Content Text */
-    .main p {
-        color: var(--amex-charcoal) !important;
-        font-size: 1rem !important;
-        line-height: 1.6 !important;
-        margin: 0.5rem 0 !important;
-    }
-    
-    /* Subtle Main Content Descriptions */
-    .main em {
-        color: var(--amex-medium-gray) !important;
-        font-style: italic !important;
-        font-size: 0.95rem !important;
-    }
-    
-    /* Professional Buttons */
+    /* SAFE: Professional Buttons */
     .stButton > button {
-        background: linear-gradient(135deg, var(--amex-bright-blue) 0%, var(--amex-deep-blue) 100%) !important;
-        color: var(--amex-white) !important;
-        border: none !important;
-        border-radius: 8px !important;
-        font-weight: 600 !important;
-        font-size: 1rem !important;
-        padding: 0.75rem 1.5rem !important;
-        box-shadow: 0 2px 8px rgba(0, 111, 207, 0.25) !important;
-        transition: all 0.2s ease !important;
-        letter-spacing: 0.025em !important;
+        background: linear-gradient(135deg, var(--amex-bright-blue) 0%, var(--amex-deep-blue) 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 0.75rem 1.5rem;
+        box-shadow: 0 2px 8px rgba(0, 111, 207, 0.25);
     }
     
-    .stButton > button:hover {
-        transform: translateY(-1px) !important;
-        box-shadow: 0 4px 12px rgba(0, 111, 207, 0.35) !important;
-    }
-    
-    /* Clean File Uploader */
+    /* SAFE: File Uploader */
     .stFileUploader {
-        background: var(--amex-powder-blue) !important;
-        border: 2px dashed var(--amex-bright-blue) !important;
-        border-radius: 12px !important;
-        padding: 2rem !important;
+        background: var(--amex-powder-blue);
+        border: 2px dashed var(--amex-bright-blue);
+        border-radius: 12px;
+        padding: 2rem;
     }
     
-    .stFileUploader label {
-        color: var(--amex-deep-blue) !important;
-    }
-    
-    /* Text Inputs */
-    .stTextArea textarea, .stTextInput input {
-        border: 1px solid #DDD !important;
-        border-radius: 8px !important;
-        font-size: 1rem !important;
-        padding: 0.75rem !important;
-        color: var(--amex-charcoal) !important;
-        background: var(--amex-white) !important;
-    }
-    
-    .stTextArea textarea:focus, .stTextInput input:focus {
-        border-color: var(--amex-bright-blue) !important;
-        box-shadow: 0 0 0 2px rgba(0, 111, 207, 0.1) !important;
-    }
-    
-    /* Result Cards - Clean & Readable */
+    /* SAFE: Result Cards */
     .stExpander {
-        border: 1px solid #E9ECEF !important;
-        border-radius: 8px !important;
-        background: var(--amex-white) !important;
-        margin-bottom: 1rem !important;
-        box-shadow: 0 2px 4px var(--amex-shadow) !important;
+        border: 1px solid #E9ECEF;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 23, 90, 0.08);
     }
     
-    .stExpanderHeader {
-        background: linear-gradient(135deg, var(--amex-deep-blue) 0%, var(--amex-bright-blue) 100%) !important;
-        color: var(--amex-white) !important;
-        border-radius: 8px 8px 0 0 !important;
-        font-weight: 600 !important;
-        font-size: 1.1rem !important;
-        padding: 1rem !important;
-    }
-    
-    .stExpanderContent {
-        background: var(--amex-white) !important;
-        color: var(--amex-charcoal) !important;
-        padding: 1.5rem !important;
-    }
-    
-    /* Metrics Cards */
-    div[data-testid="metric-container"] {
-        background: var(--amex-white) !important;
-        border: 1px solid #E9ECEF !important;
-        border-radius: 8px !important;
-        padding: 1.25rem !important;
-        box-shadow: 0 2px 4px var(--amex-shadow) !important;
-    }
-    
-    /* Success Messages */
-    .stSuccess {
-        background: linear-gradient(135deg, var(--amex-success) 0%, #20c997 100%) !important;
-        border-radius: 8px !important;
-        color: white !important;
-        font-weight: 500 !important;
-    }
-    
-    /* Info Messages */
-    .stInfo {
-        background: var(--amex-powder-blue) !important;
-        border-left: 4px solid var(--amex-bright-blue) !important;
-        border-radius: 8px !important;
-        color: var(--amex-deep-blue) !important;
-    }
-    
-    /* Progress Bars */
+    /* SAFE: Progress Bars */
     .stProgress > div > div {
-        background: linear-gradient(90deg, var(--amex-bright-blue) 0%, var(--amex-deep-blue) 100%) !important;
-        height: 8px !important;
-        border-radius: 4px !important;
+        background: linear-gradient(90deg, var(--amex-bright-blue) 0%, var(--amex-deep-blue) 100%);
+        height: 8px;
+        border-radius: 4px;
     }
     
-    /* Elegant Dividers */
-    hr {
-        border: none !important;
-        height: 1px !important;
-        background: linear-gradient(90deg, transparent 0%, var(--amex-bright-blue) 50%, transparent 100%) !important;
-        margin: 2rem 0 !important;
-    }
-    
-    /* SAFE Tooltip Styling - No Pseudo Elements */
-    [data-testid="stTooltipHoverTarget"] {
-        display: inline-block !important;
-        visibility: visible !important;
-    }
-    
+    /* SAFE: Tooltip Enhancement */
     .stTooltipIcon {
-        color: #FFD700 !important;
-        visibility: visible !important;
-        display: inline !important;
-        margin-left: 4px !important;
+        color: var(--amex-accent-gold);
+        font-size: 1rem;
     }
     
-    .stTooltipContent {
-        background: var(--amex-charcoal) !important;
-        color: var(--amex-white) !important;
-        border: 1px solid var(--amex-bright-blue) !important;
-        border-radius: 6px !important;
-        font-size: 0.85rem !important;
-        font-weight: 400 !important;
-        padding: 0.75rem !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
-        max-width: 250px !important;
-        line-height: 1.4 !important;
-        z-index: 10000 !important;
+    /* SAFE: Success Messages */
+    .stSuccess {
+        background: linear-gradient(135deg, var(--amex-success) 0%, #20c997 100%);
+        border-radius: 8px;
+        color: white;
     }
     
-    /* Fix text corruption by removing unwanted pseudo-elements */
-    .stExpanderHeader::before,
-    .stExpanderHeader::after,
-    .stFileUploader::before,
-    .stFileUploader::after {
-        content: none !important;
-        display: none !important;
+    /* SAFE: Info Messages */
+    .stInfo {
+        background: var(--amex-powder-blue);
+        border-left: 4px solid var(--amex-bright-blue);
+        border-radius: 8px;
+        color: var(--amex-deep-blue);
     }
     
-    /* Hide Streamlit Elements */
+    /* Hide Streamlit Branding */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
-    .viewerBadge_container__1QSob {visibility: hidden;}
     
-    /* Subtle Entrance Animation */
+    /* SAFE: Subtle Animation */
     .main .block-container {
         animation: fadeInUp 0.6s ease-out;
     }
