@@ -15,6 +15,367 @@ from datetime import datetime
 # Import RAG pipeline components
 from rag_pipeline import RAGPipeline
 
+# Configure page with Amex GBT-inspired theme
+st.set_page_config(
+    page_title="RAG Pipeline Comparison",
+    page_icon="🔍",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# Sophisticated Amex GBT Enterprise Design
+def load_amex_styling():
+    """Apply sophisticated, accessible Amex GBT enterprise styling"""
+    st.markdown("""
+    <style>
+    /* Import Professional Typography */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    /* Sophisticated Amex GBT Color System */
+    :root {
+        --amex-deep-blue: #00175A;
+        --amex-bright-blue: #006FCF;
+        --amex-charcoal: #152835;
+        --amex-light-gray: #F8F9FA;
+        --amex-medium-gray: #6C757D;
+        --amex-white: #FFFFFF;
+        --amex-powder-blue: #EDF4FB;
+        --amex-accent-gold: #FFD700;
+        --amex-success: #28A745;
+        --amex-shadow: rgba(0, 23, 90, 0.08);
+        --amex-shadow-deep: rgba(0, 23, 90, 0.15);
+    }
+    
+    /* Professional Typography */
+    * {
+        font-family: 'Inter', 'Arial', sans-serif !important;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    
+    /* Clean Application Background */
+    .stApp {
+        background-color: var(--amex-light-gray) !important;
+    }
+    
+    /* Elegant Main Content Container */
+    .main .block-container {
+        background: var(--amex-white) !important;
+        border-radius: 12px !important;
+        box-shadow: 0 4px 12px var(--amex-shadow) !important;
+        padding: 2.5rem !important;
+        margin: 1.5rem !important;
+        border: 1px solid #E9ECEF !important;
+        max-width: 100% !important;
+    }
+    
+    /* Refined Sidebar Design */
+    section[data-testid="stSidebar"] {
+        background: linear-gradient(180deg, var(--amex-deep-blue) 0%, #1a3261 100%) !important;
+        border-right: 3px solid var(--amex-bright-blue) !important;
+    }
+    
+    /* Sidebar Content Wrapper */
+    section[data-testid="stSidebar"] > div {
+        background: transparent !important;
+        padding: 1rem !important;
+    }
+    
+    /* Sidebar Typography - High Contrast */
+    section[data-testid="stSidebar"] * {
+        color: var(--amex-white) !important;
+    }
+    
+    /* Sidebar Main Title */
+    section[data-testid="stSidebar"] h1 {
+        color: var(--amex-accent-gold) !important;
+        font-size: 1.5rem !important;
+        font-weight: 600 !important;
+        text-align: center !important;
+        padding: 1rem 0 !important;
+        border-bottom: 2px solid var(--amex-accent-gold) !important;
+        margin-bottom: 1.5rem !important;
+    }
+    
+    /* Sidebar Section Headers */
+    section[data-testid="stSidebar"] h3 {
+        color: #B3D9FF !important;
+        font-size: 1.1rem !important;
+        font-weight: 600 !important;
+        border-bottom: 1px solid var(--amex-bright-blue) !important;
+        padding-bottom: 0.5rem !important;
+        margin: 1.5rem 0 0.75rem 0 !important;
+    }
+    
+    /* Sidebar Descriptions - Elegant & Readable */
+    section[data-testid="stSidebar"] em {
+        color: #E3F2FD !important;
+        font-style: italic !important;
+        font-size: 0.85rem !important;
+        display: block !important;
+        margin: 0.5rem 0 1rem 0 !important;
+        padding: 0.75rem !important;
+        background: rgba(255, 255, 255, 0.08) !important;
+        border-radius: 6px !important;
+        border-left: 3px solid #4FC3F7 !important;
+        line-height: 1.4 !important;
+    }
+    
+    /* Clean Sidebar Controls */
+    section[data-testid="stSidebar"] .stCheckbox {
+        background: rgba(255, 255, 255, 0.06) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 6px !important;
+        padding: 0.6rem !important;
+        margin: 0.4rem 0 !important;
+        transition: all 0.2s ease !important;
+    }
+    
+    section[data-testid="stSidebar"] .stCheckbox:hover {
+        background: rgba(255, 255, 255, 0.1) !important;
+        border-color: var(--amex-bright-blue) !important;
+    }
+    
+    section[data-testid="stSidebar"] .stCheckbox label {
+        color: var(--amex-white) !important;
+        font-weight: 400 !important;
+        font-size: 0.9rem !important;
+    }
+    
+    /* Sidebar Sliders */
+    section[data-testid="stSidebar"] .stSlider {
+        background: rgba(255, 255, 255, 0.04) !important;
+        border-radius: 6px !important;
+        padding: 0.8rem !important;
+        margin: 0.5rem 0 !important;
+    }
+    
+    section[data-testid="stSidebar"] .stSlider label {
+        color: #E3F2FD !important;
+        font-weight: 400 !important;
+        font-size: 0.85rem !important;
+    }
+    
+    /* Remove Config Group Styling */
+    .config-group {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    /* Main Content Headers */
+    .main h1 {
+        color: var(--amex-deep-blue) !important;
+        font-size: 2.5rem !important;
+        font-weight: 700 !important;
+        text-align: center !important;
+        margin-bottom: 0.5rem !important;
+        letter-spacing: -0.02em !important;
+    }
+    
+    .main h2 {
+        color: var(--amex-deep-blue) !important;
+        font-size: 1.5rem !important;
+        font-weight: 600 !important;
+        margin: 2rem 0 1rem 0 !important;
+        border-bottom: 2px solid var(--amex-bright-blue) !important;
+        padding-bottom: 0.5rem !important;
+    }
+    
+    .main h3 {
+        color: var(--amex-charcoal) !important;
+        font-size: 1.25rem !important;
+        font-weight: 600 !important;
+        margin: 1.5rem 0 0.75rem 0 !important;
+    }
+    
+    /* Main Content Text */
+    .main p {
+        color: var(--amex-charcoal) !important;
+        font-size: 1rem !important;
+        line-height: 1.6 !important;
+        margin: 0.5rem 0 !important;
+    }
+    
+    /* Subtle Main Content Descriptions */
+    .main em {
+        color: var(--amex-medium-gray) !important;
+        font-style: italic !important;
+        font-size: 0.95rem !important;
+    }
+    
+    /* Professional Buttons */
+    .stButton > button {
+        background: linear-gradient(135deg, var(--amex-bright-blue) 0%, var(--amex-deep-blue) 100%) !important;
+        color: var(--amex-white) !important;
+        border: none !important;
+        border-radius: 8px !important;
+        font-weight: 600 !important;
+        font-size: 1rem !important;
+        padding: 0.75rem 1.5rem !important;
+        box-shadow: 0 2px 8px rgba(0, 111, 207, 0.25) !important;
+        transition: all 0.2s ease !important;
+        letter-spacing: 0.025em !important;
+    }
+    
+    .stButton > button:hover {
+        transform: translateY(-1px) !important;
+        box-shadow: 0 4px 12px rgba(0, 111, 207, 0.35) !important;
+    }
+    
+    /* Clean File Uploader */
+    .stFileUploader {
+        background: var(--amex-powder-blue) !important;
+        border: 2px dashed var(--amex-bright-blue) !important;
+        border-radius: 12px !important;
+        padding: 2rem !important;
+    }
+    
+    .stFileUploader label {
+        color: var(--amex-deep-blue) !important;
+    }
+    
+    /* Text Inputs */
+    .stTextArea textarea, .stTextInput input {
+        border: 1px solid #DDD !important;
+        border-radius: 8px !important;
+        font-size: 1rem !important;
+        padding: 0.75rem !important;
+        color: var(--amex-charcoal) !important;
+        background: var(--amex-white) !important;
+    }
+    
+    .stTextArea textarea:focus, .stTextInput input:focus {
+        border-color: var(--amex-bright-blue) !important;
+        box-shadow: 0 0 0 2px rgba(0, 111, 207, 0.1) !important;
+    }
+    
+    /* Result Cards - Clean & Readable */
+    .stExpander {
+        border: 1px solid #E9ECEF !important;
+        border-radius: 8px !important;
+        background: var(--amex-white) !important;
+        margin-bottom: 1rem !important;
+        box-shadow: 0 2px 4px var(--amex-shadow) !important;
+    }
+    
+    .stExpanderHeader {
+        background: linear-gradient(135deg, var(--amex-deep-blue) 0%, var(--amex-bright-blue) 100%) !important;
+        color: var(--amex-white) !important;
+        border-radius: 8px 8px 0 0 !important;
+        font-weight: 600 !important;
+        font-size: 1.1rem !important;
+        padding: 1rem !important;
+    }
+    
+    .stExpanderContent {
+        background: var(--amex-white) !important;
+        color: var(--amex-charcoal) !important;
+        padding: 1.5rem !important;
+    }
+    
+    /* Metrics Cards */
+    div[data-testid="metric-container"] {
+        background: var(--amex-white) !important;
+        border: 1px solid #E9ECEF !important;
+        border-radius: 8px !important;
+        padding: 1.25rem !important;
+        box-shadow: 0 2px 4px var(--amex-shadow) !important;
+    }
+    
+    /* Success Messages */
+    .stSuccess {
+        background: linear-gradient(135deg, var(--amex-success) 0%, #20c997 100%) !important;
+        border-radius: 8px !important;
+        color: white !important;
+        font-weight: 500 !important;
+    }
+    
+    /* Info Messages */
+    .stInfo {
+        background: var(--amex-powder-blue) !important;
+        border-left: 4px solid var(--amex-bright-blue) !important;
+        border-radius: 8px !important;
+        color: var(--amex-deep-blue) !important;
+    }
+    
+    /* Progress Bars */
+    .stProgress > div > div {
+        background: linear-gradient(90deg, var(--amex-bright-blue) 0%, var(--amex-deep-blue) 100%) !important;
+        height: 8px !important;
+        border-radius: 4px !important;
+    }
+    
+    /* Elegant Dividers */
+    hr {
+        border: none !important;
+        height: 1px !important;
+        background: linear-gradient(90deg, transparent 0%, var(--amex-bright-blue) 50%, transparent 100%) !important;
+        margin: 2rem 0 !important;
+    }
+    
+    /* SAFE Tooltip Styling - No Pseudo Elements */
+    [data-testid="stTooltipHoverTarget"] {
+        display: inline-block !important;
+        visibility: visible !important;
+    }
+    
+    .stTooltipIcon {
+        color: #FFD700 !important;
+        visibility: visible !important;
+        display: inline !important;
+        margin-left: 4px !important;
+    }
+    
+    .stTooltipContent {
+        background: var(--amex-charcoal) !important;
+        color: var(--amex-white) !important;
+        border: 1px solid var(--amex-bright-blue) !important;
+        border-radius: 6px !important;
+        font-size: 0.85rem !important;
+        font-weight: 400 !important;
+        padding: 0.75rem !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+        max-width: 250px !important;
+        line-height: 1.4 !important;
+        z-index: 10000 !important;
+    }
+    
+    /* Fix text corruption by removing unwanted pseudo-elements */
+    .stExpanderHeader::before,
+    .stExpanderHeader::after,
+    .stFileUploader::before,
+    .stFileUploader::after {
+        content: none !important;
+        display: none !important;
+    }
+    
+    /* Hide Streamlit Elements */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    .viewerBadge_container__1QSob {visibility: hidden;}
+    
+    /* Subtle Entrance Animation */
+    .main .block-container {
+        animation: fadeInUp 0.6s ease-out;
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
 # Import logging
 from logger_config import setup_logging, get_logger
 
@@ -80,54 +441,72 @@ def render_sidebar():
         
         # Embedding Models Section
         st.markdown("### 📊 Embedding Models")
+        st.markdown("*How the AI 'reads' and understands your documents - like choosing between different types of reading specialists*")
         with st.container():
             st.markdown('<div class="config-group">', unsafe_allow_html=True)
             
             # OpenAI Embeddings
-            openai_small = st.checkbox("OpenAI text-embedding-3-small (1536-dim)", value=True, key="openai_small")
-            openai_large = st.checkbox("OpenAI text-embedding-3-large (3072-dim)", value=False, key="openai_large")
+            openai_small = st.checkbox("OpenAI text-embedding-3-small (1536-dim)", value=True, key="openai_small", 
+                                     help="Like a smart librarian who reads documents quickly and creates compact summaries for fast searching")
+            openai_large = st.checkbox("OpenAI text-embedding-3-large (3072-dim)", value=False, key="openai_large",
+                                     help="Like a detailed scholar who creates comprehensive summaries - slower but captures more nuance")
             
             # Cohere Embeddings
-            cohere_default = st.checkbox("Cohere embed-v4.0 (auto-dim)", value=True, key="cohere_default")
+            cohere_default = st.checkbox("Cohere embed-v4.0 (auto-dim)", value=True, key="cohere_default",
+                                       help="Like a specialist translator who excels at understanding context and relationships between ideas")
             
             st.markdown('</div>', unsafe_allow_html=True)
         
         # Chunking Strategy Section
         st.markdown("### 📝 Chunking Strategy")
+        st.markdown("*How we break your documents into digestible pieces - like choosing how to slice a pizza for optimal sharing*")
         with st.container():
             st.markdown('<div class="config-group">', unsafe_allow_html=True)
             
             # Fixed-size chunking
-            fixed_chunking = st.checkbox("Fixed-size chunking", value=True, key="fixed_chunking")
+            fixed_chunking = st.checkbox("Fixed-size chunking", value=True, key="fixed_chunking",
+                                       help="Like cutting a book into equal-sized chapters - consistent and predictable")
             if fixed_chunking:
-                chunk_size = st.slider("Chunk size (characters)", 200, 1000, 500, 50, key="chunk_size")
-                chunk_overlap = st.slider("Chunk overlap", 0, 200, 50, 10, key="chunk_overlap")
+                chunk_size = st.slider("Chunk size (characters)", 200, 1000, 500, 50, key="chunk_size",
+                                     help="How many characters in each piece - like setting page length")
+                chunk_overlap = st.slider("Chunk overlap", 0, 200, 50, 10, key="chunk_overlap",
+                                        help="How much content to repeat between pieces - like having chapter previews")
             
             # Sentence-based chunking
-            sentence_chunking = st.checkbox("Sentence-based chunking", value=False, key="sentence_chunking")
+            sentence_chunking = st.checkbox("Sentence-based chunking", value=False, key="sentence_chunking",
+                                          help="Like a smart editor who breaks content at natural topic boundaries for better understanding")
             if sentence_chunking:
-                max_sentences = st.slider("Max sentences per chunk", 3, 10, 5, 1, key="max_sentences")
+                max_sentences = st.slider("Max sentences per chunk", 3, 10, 5, 1, key="max_sentences",
+                                        help="Maximum sentences per piece - like setting paragraph length")
             
             st.markdown('</div>', unsafe_allow_html=True)
         
         # Retrieval Method Section
         st.markdown("### 🎯 Retrieval Method")
+        st.markdown("*How the system finds the most relevant information to answer your question - like choosing your search strategy in a library*")
         with st.container():
             st.markdown('<div class="config-group">', unsafe_allow_html=True)
             
-            vector_only = st.checkbox("Vector-only (cosine similarity)", value=True, key="vector_only")
-            bm25_only = st.checkbox("BM25-only (keyword-based)", value=False, key="bm25_only")
-            hybrid_30 = st.checkbox("Hybrid (30% vector + 70% BM25)", value=False, key="hybrid_30")
-            hybrid_50 = st.checkbox("Hybrid (50% vector + 50% BM25)", value=False, key="hybrid_50")
-            hybrid_70 = st.checkbox("Hybrid (70% vector + 30% BM25)", value=True, key="hybrid_70")
+            vector_only = st.checkbox("Vector-only (cosine similarity)", value=True, key="vector_only",
+                                    help="Like having a personal assistant who finds documents based on meaning and context, not just keywords")
+            bm25_only = st.checkbox("BM25-only (keyword-based)", value=False, key="bm25_only",
+                                  help="Like a traditional search engine that matches your exact words and phrases")
+            hybrid_30 = st.checkbox("Hybrid (30% vector + 70% BM25)", value=False, key="hybrid_30",
+                                  help="Like combining a librarian's intuition with a search engine's precision - balanced toward keyword matching")
+            hybrid_50 = st.checkbox("Hybrid (50% vector + 50% BM25)", value=False, key="hybrid_50",
+                                  help="Like combining a librarian's intuition with a search engine's precision - perfectly balanced")
+            hybrid_70 = st.checkbox("Hybrid (70% vector + 30% BM25)", value=True, key="hybrid_70",
+                                  help="Like combining a librarian's intuition with a search engine's precision - balanced toward meaning understanding")
             
             # Top-k results
-            top_k = st.slider("Top-k results to retrieve", 1, 20, 5, 1, key="top_k")
+            top_k = st.slider("Top-k results to retrieve", 1, 20, 5, 1, key="top_k",
+                            help="How many of the most relevant documents to consider - like asking for the 'top 5' recommendations")
             
             st.markdown('</div>', unsafe_allow_html=True)
         
         # Generation Model (Fixed)
         st.markdown("### 🤖 Generation Model")
+        st.markdown("*The AI writer that crafts the final response using the information found from your documents*")
         st.info("**Fixed:** GPT-4o-mini (for consistent comparison)")
         
         # Configuration Summary
@@ -502,12 +881,17 @@ def main():
     """Main application"""
     logger.info("🚀 Starting RAG Indexing Comparison App")
     
+    # Apply Amex GBT professional styling
+    load_amex_styling()
+    
     # Initialize session state
     initialize_session_state()
     
     # Header
-    st.title("🔍 RAG Indexing Comparison App")
-    st.markdown("Compare different embedding models, chunking strategies, and retrieval methods side-by-side")
+    st.title("🔍 RAG Pipeline Comparison Platform")
+    st.markdown("### Enterprise-grade analysis of document retrieval and AI response generation")
+    st.markdown("*Compare different AI models, document processing strategies, and search methods to optimize your knowledge retrieval system*")
+    st.divider()
     
     # Check if setup validation was run
     if not os.path.exists('.env'):
