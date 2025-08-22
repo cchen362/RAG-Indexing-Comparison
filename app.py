@@ -40,6 +40,29 @@ def load_amex_styling():
         --amex-success: #28A745;
     }
     
+    /* Enterprise Icon Styling */
+    .enterprise-icon {
+        color: var(--amex-bright-blue);
+        font-size: 20px;
+        vertical-align: middle;
+        margin-right: 10px;
+        display: inline-block;
+        width: 20px;
+        text-align: center;
+    }
+    
+    .enterprise-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+    
+    .enterprise-header h1, .enterprise-header h2 {
+        margin: 0;
+        color: var(--amex-deep-blue);
+        display: inline-block;
+    }
+    
     /* SAFE: App Background */
     .stApp {
         background-color: var(--amex-light-gray);
@@ -281,7 +304,7 @@ def initialize_session_state():
 def render_sidebar():
     """Render the sidebar with configuration options"""
     with st.sidebar:
-        st.title("🔍 RAG Configuration")
+        st.title("RAG Configuration")
         
         # Embedding Models Section
         st.markdown("### 📊 Embedding Models")
@@ -346,7 +369,7 @@ def render_sidebar():
             st.markdown('</div>', unsafe_allow_html=True)
         
         # Generation Model (Fixed)
-        st.markdown("### 🤖 Generation Model")
+        st.markdown("### ⚡ Generation Model")
         st.markdown("*The AI writer that crafts the final response using the information found from your documents*")
         st.info("**Fixed:** GPT-4o-mini (for consistent comparison)")
         
@@ -437,7 +460,12 @@ def get_active_configurations():
 
 def render_document_upload():
     """Render document upload section"""
-    st.markdown("## 📄 Document Upload")
+    st.markdown("""
+    <div class="enterprise-header">
+        <span class="enterprise-icon">◎</span>
+        <h2>Document Upload</h2>
+    </div>
+    """, unsafe_allow_html=True)
     
     uploaded_files = st.file_uploader(
         "Upload documents for indexing",
@@ -465,7 +493,12 @@ def render_document_upload():
 
 def render_query_section():
     """Render query input and execution section"""
-    st.markdown("## 🔍 Query & Execution")
+    st.markdown("""
+    <div class="enterprise-header">
+        <span class="enterprise-icon">◉</span>
+        <h2>Query & Execution</h2>
+    </div>
+    """, unsafe_allow_html=True)
     
     # Query input
     query = st.text_area(
@@ -522,7 +555,12 @@ def execute_pipeline_comparison(query, parallel_runs):
     configs = get_active_configurations()
     documents = st.session_state.uploaded_docs
     
-    st.markdown("## ⚡ Pipeline Execution")
+    st.markdown("""
+    <div class="enterprise-header">
+        <span class="enterprise-icon">▶</span>
+        <h2>Pipeline Execution</h2>
+    </div>
+    """, unsafe_allow_html=True)
     
     # Initialize pipeline
     if 'rag_pipeline' not in st.session_state:
@@ -628,7 +666,12 @@ def render_results():
     if not st.session_state.pipeline_results:
         return
     
-    st.markdown("## 📊 Comparison Results")
+    st.markdown("""
+    <div class="enterprise-header">
+        <span class="enterprise-icon">▣</span>
+        <h2>Comparison Results</h2>
+    </div>
+    """, unsafe_allow_html=True)
     
     # Results overview
     total_results = len(st.session_state.pipeline_results)
@@ -729,7 +772,9 @@ def main():
     initialize_session_state()
     
     # Header
-    st.title("🔍 RAG Pipeline Comparison Platform")
+    st.markdown("""
+    <h1 style="color: var(--amex-deep-blue); text-align: center;">RAG Pipeline Comparison Platform</h1>
+    """, unsafe_allow_html=True)
     st.markdown("*Compare different AI models, document processing strategies, and search methods to optimize your knowledge retrieval system*")
     st.divider()
     
