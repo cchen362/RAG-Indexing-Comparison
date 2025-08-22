@@ -287,7 +287,6 @@ def render_sidebar():
         st.markdown("### 📊 Embedding Models")
         st.markdown("*How the AI 'reads' and understands your documents - like choosing between different types of reading specialists*")
         with st.container():
-            st.markdown('<div class="config-group">', unsafe_allow_html=True)
             
             # OpenAI Embeddings
             openai_small = st.checkbox("OpenAI text-embedding-3-small (1536-dim)", value=True, key="openai_small", 
@@ -305,7 +304,6 @@ def render_sidebar():
         st.markdown("### 📝 Chunking Strategy")
         st.markdown("*How we break your documents into digestible pieces - like choosing how to slice a pizza for optimal sharing*")
         with st.container():
-            st.markdown('<div class="config-group">', unsafe_allow_html=True)
             
             # Fixed-size chunking
             fixed_chunking = st.checkbox("Fixed-size chunking", value=True, key="fixed_chunking",
@@ -329,7 +327,6 @@ def render_sidebar():
         st.markdown("### 🎯 Retrieval Method")
         st.markdown("*How the system finds the most relevant information to answer your question - like choosing your search strategy in a library*")
         with st.container():
-            st.markdown('<div class="config-group">', unsafe_allow_html=True)
             
             vector_only = st.checkbox("Vector-only (cosine similarity)", value=True, key="vector_only",
                                     help="Like having a personal assistant who finds documents based on meaning and context, not just keywords")
