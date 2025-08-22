@@ -106,6 +106,24 @@ def load_amex_styling():
         margin: 0.4rem 0;
     }
     
+    /* CRITICAL: Make tooltip icons visible in dark sidebar */
+    section[data-testid="stSidebar"] .stTooltipIcon {
+        color: #B3D9FF !important;
+    }
+    
+    section[data-testid="stSidebar"] .stTooltipIcon svg {
+        fill: #B3D9FF !important;
+    }
+    
+    /* Also target any help icons in sidebar */
+    section[data-testid="stSidebar"] [data-testid="stTooltipHoverTarget"] {
+        color: #B3D9FF !important;
+    }
+    
+    section[data-testid="stSidebar"] [data-testid="stTooltipHoverTarget"] svg {
+        fill: #B3D9FF !important;
+    }
+    
     section[data-testid="stSidebar"] .stSlider {
         background: rgba(255, 255, 255, 0.04);
         border-radius: 6px;
@@ -715,7 +733,6 @@ def main():
     
     # Header
     st.title("🔍 RAG Pipeline Comparison Platform")
-    st.markdown("### Enterprise-grade analysis of document retrieval and AI response generation")
     st.markdown("*Compare different AI models, document processing strategies, and search methods to optimize your knowledge retrieval system*")
     st.divider()
     
