@@ -27,7 +27,7 @@ st.set_page_config(
 def load_amex_styling():
     """Sophisticated Amex GBT styling - rebuilt with surgical precision"""
     
-    # Force light mode to prevent browser dark mode interference
+    # Minimal dark mode prevention - meta tags only (per streamlit dark mode.md recommendations)
     st.markdown("""
     <meta name="color-scheme" content="light">
     <meta name="supported-color-schemes" content="light">
@@ -35,33 +35,17 @@ def load_amex_styling():
     
     st.markdown("""
     <style>
-    /* Dark Mode Prevention - Force Light Mode */
-    html, body {
-        background: #f5f5f5 !important;
-        color: #111 !important;
-        color-scheme: light !important;
-    }
-    
+    /* Targeted dark mode fix - main content area text visibility only */
     @media (prefers-color-scheme: dark) {
-        * {
-            color-scheme: light !important;
-            background-color: inherit !important;
-            color: inherit !important;
+        .main .block-container * {
+            color: var(--amex-charcoal) !important;
         }
-    }
-    
-    /* Neutralize Form Controls for Dark Mode */
-    input, textarea, select, button {
-        background-color: #fff !important;
-        color: #000 !important;
-        -webkit-appearance: none !important;
-        appearance: none !important;
-    }
-    
-    /* Force Streamlit Components to Light Mode */
-    .stMarkdown, .stText, .stTextArea, .stSelectbox, .stMultiSelect {
-        background-color: #fff !important;
-        color: #000 !important;
+        .main .block-container h1, .main .block-container h2, .main .block-container h3 {
+            color: var(--amex-deep-blue) !important;
+        }
+        .stMarkdown p {
+            color: #333 !important;
+        }
     }
     
     /* Amex GBT Professional Color System */

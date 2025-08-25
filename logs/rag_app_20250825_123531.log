@@ -5,3 +5,36 @@
 2025-08-25 12:35:31 | streamlit_app | INFO | 🔧 Executing 4 configurations: ['openai-1536d_fixed-500c-50o_vector', 'openai-1536d_fixed-500c-50o_hybrid_a0.7', 'cohere-1536d_fixed-500c-50o_vector', 'cohere-1536d_fixed-500c-50o_hybrid_a0.7']
 2025-08-25 12:35:31 | streamlit_app | INFO | 🔄 Initializing RAG pipeline...
 2025-08-25 12:35:31 | rag_pipeline | INFO | 🔧 Initializing RAG Pipeline components...
+2025-08-25 12:35:33 | streamlit_app | INFO | ✅ Pipeline initialized successfully
+2025-08-25 12:35:34 | streamlit_app | INFO | ⚡ Starting execution for config: openai-1536d_fixed-500c-50o_vector
+2025-08-25 12:35:34 | rag_pipeline | INFO | 📋 Executing config: openai-1536d_fixed-500c-50o_vector (run_id: 27706b85)
+2025-08-25 12:35:34 | rag_pipeline | INFO | 🔪 Chunking completed: 49 chunks in 0.00s
+2025-08-25 12:35:35 | httpx | INFO | HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-08-25 12:35:36 | rag_pipeline | INFO | 🔢 Embeddings completed: 49 chunks in 1.95s
+2025-08-25 12:35:36 | httpx | INFO | HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-08-25 12:35:38 | httpx | INFO | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-25 12:35:38 | streamlit_app | INFO | ✅ Config openai-1536d_fixed-500c-50o_vector completed in 4.23s
+2025-08-25 12:35:38 | streamlit_app | INFO | ⚡ Starting execution for config: openai-1536d_fixed-500c-50o_hybrid_a0.7
+2025-08-25 12:35:38 | rag_pipeline | INFO | 📋 Executing config: openai-1536d_fixed-500c-50o_hybrid_a0.7 (run_id: 27706b85)
+2025-08-25 12:35:38 | rag_pipeline | INFO | 🔪 Chunking completed: 49 chunks in 0.00s
+2025-08-25 12:35:39 | httpx | INFO | HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-08-25 12:35:40 | rag_pipeline | INFO | 🔢 Embeddings completed: 49 chunks in 1.41s
+2025-08-25 12:35:40 | httpx | INFO | HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-08-25 12:35:42 | httpx | INFO | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-25 12:35:42 | streamlit_app | INFO | ✅ Config openai-1536d_fixed-500c-50o_hybrid_a0.7 completed in 3.67s
+2025-08-25 12:35:42 | streamlit_app | INFO | ⚡ Starting execution for config: cohere-1536d_fixed-500c-50o_vector
+2025-08-25 12:35:42 | rag_pipeline | INFO | 📋 Executing config: cohere-1536d_fixed-500c-50o_vector (run_id: 27706b85)
+2025-08-25 12:35:42 | rag_pipeline | INFO | 🔪 Chunking completed: 49 chunks in 0.00s
+2025-08-25 12:35:43 | httpx | INFO | HTTP Request: POST https://api.cohere.com/v2/embed "HTTP/1.1 200 OK"
+2025-08-25 12:35:44 | rag_pipeline | INFO | 🔢 Embeddings completed: 49 chunks in 1.70s
+2025-08-25 12:35:45 | httpx | INFO | HTTP Request: POST https://api.cohere.com/v2/embed "HTTP/1.1 200 OK"
+2025-08-25 12:35:46 | httpx | INFO | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-25 12:35:46 | streamlit_app | INFO | ✅ Config cohere-1536d_fixed-500c-50o_vector completed in 4.03s
+2025-08-25 12:35:47 | streamlit_app | INFO | ⚡ Starting execution for config: cohere-1536d_fixed-500c-50o_hybrid_a0.7
+2025-08-25 12:35:47 | rag_pipeline | INFO | 📋 Executing config: cohere-1536d_fixed-500c-50o_hybrid_a0.7 (run_id: 27706b85)
+2025-08-25 12:35:47 | rag_pipeline | INFO | 🔪 Chunking completed: 49 chunks in 0.00s
+2025-08-25 12:35:47 | httpx | INFO | HTTP Request: POST https://api.cohere.com/v2/embed "HTTP/1.1 200 OK"
+2025-08-25 12:35:49 | rag_pipeline | INFO | 🔢 Embeddings completed: 49 chunks in 1.80s
+2025-08-25 12:35:49 | httpx | INFO | HTTP Request: POST https://api.cohere.com/v2/embed "HTTP/1.1 200 OK"
+2025-08-25 12:35:51 | httpx | INFO | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-25 12:35:51 | streamlit_app | INFO | ✅ Config cohere-1536d_fixed-500c-50o_hybrid_a0.7 completed in 3.76s
