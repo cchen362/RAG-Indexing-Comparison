@@ -1,0 +1,7 @@
+2025-08-25 12:35:31 | streamlit_app | INFO | 🚀 Starting RAG Indexing Comparison App
+2025-08-25 12:35:31 | streamlit_app | INFO | 📄 1 files uploaded: ['Test Confluence and Jira Tickets.docx']
+2025-08-25 12:35:31 | streamlit_app | INFO | 🚀 Run comparison button clicked for query: 'What Confluence articles we have?...'
+2025-08-25 12:35:31 | streamlit_app | INFO | 🆔 New comparison started with run_id: 27706b85
+2025-08-25 12:35:31 | streamlit_app | INFO | 🔧 Executing 4 configurations: ['openai-1536d_fixed-500c-50o_vector', 'openai-1536d_fixed-500c-50o_hybrid_a0.7', 'cohere-1536d_fixed-500c-50o_vector', 'cohere-1536d_fixed-500c-50o_hybrid_a0.7']
+2025-08-25 12:35:31 | streamlit_app | INFO | 🔄 Initializing RAG pipeline...
+2025-08-25 12:35:31 | rag_pipeline | INFO | 🔧 Initializing RAG Pipeline components...

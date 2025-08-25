@@ -1,0 +1,88 @@
+# Development and build artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environment
+rag-env/
+venv/
+env/
+ENV/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs and temporary files
+logs/
+*.log
+*.tmp
+*.temp
+
+# Test and coverage
+.pytest_cache/
+.coverage
+.tox/
+htmlcov/
+
+# Git
+.git/
+.gitignore
+
+# Documentation (keep essential ones)
+*.md
+!README.md
+!DEPLOYMENT.md
+
+# Environment files (will be mounted via docker-compose)
+.env.example
+.env.local
+.env.development
+.env.test
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+
+# Spyder
+.spyderproject
+.spyproject
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json

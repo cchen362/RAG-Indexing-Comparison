@@ -16,7 +16,7 @@ class SheetsLogger:
     """Handles logging pipeline results to Google Sheets"""
     
     def __init__(self, credentials_path: str = None, sheet_id: str = None):
-        self.credentials_path = credentials_path or 'credentials/rag-comparison-app-39c3d078bdca.json'
+        self.credentials_path = credentials_path or 'credentials/rag-comparison-app-2ebc99e885e4.json'
         self.sheet_id = sheet_id or os.getenv('GOOGLE_SHEET_ID', '1U34uloZe1S0E-T83LDOtKfgYuBipBrejGdEW8QVSguI')
         self.gc = None
         self.sheet = None

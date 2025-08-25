@@ -17,7 +17,7 @@ def load_environment():
     """Load environment variables from .env file"""
     env_path = Path('.env')
     if not env_path.exists():
-        print("❌ .env file not found. Please create one with your API keys.")
+        print("[FAIL] .env file not found. Please create one with your API keys.")
         return False
     
     load_dotenv()
@@ -27,7 +27,7 @@ def test_openai_api():
     """Test OpenAI API connection"""
     api_key = os.getenv('OPENAI_API_KEY')
     if not api_key:
-        print("❌ OPENAI_API_KEY not found in .env file")
+        print("[FAIL] OPENAI_API_KEY not found in .env file")
         return False
     
     try:
@@ -37,18 +37,18 @@ def test_openai_api():
             model="text-embedding-3-small",
             input="test"
         )
-        print("✅ OpenAI API connection successful")
+        print("[OK] OpenAI API connection successful")
         print(f"   Embedding dimension: {len(response.data[0].embedding)}")
         return True
     except Exception as e:
-        print(f"❌ OpenAI API test failed: {str(e)}")
+        print(f"[FAIL] OpenAI API test failed: {str(e)}")
         return False
 
 def test_cohere_api():
     """Test Cohere API connection"""
     api_key = os.getenv('COHERE_API_KEY')
     if not api_key:
-        print("❌ COHERE_API_KEY not found in .env file")
+        print("[FAIL] COHERE_API_KEY not found in .env file")
         return False
     
     try:
@@ -60,18 +60,18 @@ def test_cohere_api():
             input_type="search_document",
             embedding_types=["float"]
         )
-        print("✅ Cohere API connection successful")
+        print("[OK] Cohere API connection successful")
         print(f"   Embedding dimension: {len(response.embeddings.float_[0])}")
         return True
     except Exception as e:
-        print(f"❌ Cohere API test failed: {str(e)}")
+        print(f"[FAIL] Cohere API test failed: {str(e)}")
         return False
 
 def test_google_sheets():
     """Test Google Sheets API connection"""
-    creds_path = Path('credentials/rag-comparison-app-39c3d078bdca.json')
+    creds_path = Path('credentials/rag-comparison-app-2ebc99e885e4.json')
     if not creds_path.exists():
-        print(f"❌ Google credentials file not found at {creds_path}")
+        print(f"[FAIL] Google credentials file not found at {creds_path}")
         return False
     
     sheet_id = os.getenv('GOOGLE_SHEET_ID', '1U34uloZe1S0E-T83LDOtKfgYuBipBrejGdEW8QVSguI')
@@ -93,17 +93,17 @@ def test_google_sheets():
         test_data = [["Test", "Connection", "Success"]]
         worksheet.append_rows(test_data)
         
-        print("✅ Google Sheets API connection successful")
+        print("[OK] Google Sheets API connection successful")
         print(f"   Sheet title: {sheet.title}")
         print(f"   Worksheet: {worksheet.title}")
         return True
     except Exception as e:
-        print(f"❌ Google Sheets API test failed: {str(e)}")
+        print(f"[FAIL] Google Sheets API test failed: {str(e)}")
         return False
 
 def main():
     """Run all validation tests"""
-    print("🚀 Starting RAG Indexing Comparison App setup validation...\n")
+    print("Starting RAG Indexing Comparison App setup validation...\n")
     
     # Load environment
     if not load_environment():
@@ -128,9 +128,9 @@ def main():
     total = len(results)
     
     if passed == total:
-        print(f"🎉 All {total} tests passed! Setup is ready for development.")
+        print(f"[OK] All {total} tests passed! Setup is ready for development.")
     else:
-        print(f"⚠️  {passed}/{total} tests passed. Please fix the failing tests before proceeding.")
+        print(f"!  {passed}/{total} tests passed. Please fix the failing tests before proceeding.")
         sys.exit(1)
 
 if __name__ == "__main__":

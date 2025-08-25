@@ -26,8 +26,44 @@ st.set_page_config(
 # SOPHISTICATED AMEX STYLING - REBUILT SAFELY
 def load_amex_styling():
     """Sophisticated Amex GBT styling - rebuilt with surgical precision"""
+    
+    # Force light mode to prevent browser dark mode interference
+    st.markdown("""
+    <meta name="color-scheme" content="light">
+    <meta name="supported-color-schemes" content="light">
+    """, unsafe_allow_html=True)
+    
     st.markdown("""
     <style>
+    /* Dark Mode Prevention - Force Light Mode */
+    html, body {
+        background: #f5f5f5 !important;
+        color: #111 !important;
+        color-scheme: light !important;
+    }
+    
+    @media (prefers-color-scheme: dark) {
+        * {
+            color-scheme: light !important;
+            background-color: inherit !important;
+            color: inherit !important;
+        }
+    }
+    
+    /* Neutralize Form Controls for Dark Mode */
+    input, textarea, select, button {
+        background-color: #fff !important;
+        color: #000 !important;
+        -webkit-appearance: none !important;
+        appearance: none !important;
+    }
+    
+    /* Force Streamlit Components to Light Mode */
+    .stMarkdown, .stText, .stTextArea, .stSelectbox, .stMultiSelect {
+        background-color: #fff !important;
+        color: #000 !important;
+    }
+    
     /* Amex GBT Professional Color System */
     :root {
         --amex-deep-blue: #00175A;
