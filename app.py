@@ -108,8 +108,18 @@ def load_amex_styling():
         border-right: 3px solid var(--amex-bright-blue);
     }
     
-    /* Hide sidebar collapse button to keep sidebar fixed */
-    [data-testid="collapsedControl"] {
+    /* Hide sidebar collapse button to keep sidebar fixed - comprehensive approach */
+    [data-testid="collapsedControl"],
+    [data-testid="stSidebarCollapseButton"],
+    button[data-testid="collapsedControl"],
+    button[data-testid="stSidebarCollapseButton"] {
+        display: none !important;
+        visibility: hidden !important;
+    }
+    
+    /* Additional container hiding for persistent cases */
+    .css-1y4p8pa,
+    .css-1vencpc {
         display: none !important;
     }
     
