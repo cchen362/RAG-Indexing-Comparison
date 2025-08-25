@@ -1,6 +1,9 @@
 # RAG Indexing Comparison App
 
-A Streamlit application for testing and comparing different Retrieval-Augmented Generation (RAG) pipeline configurations side-by-side.
+A production-ready Streamlit application for testing and comparing different Retrieval-Augmented Generation (RAG) pipeline configurations side-by-side.
+
+**🌐 Live Demo:** https://ragindex.zyroi.com  
+**📊 Status:** Production deployment active since August 2025
 
 ## 🎯 Purpose
 
@@ -13,16 +16,18 @@ This app allows you to:
 
 ## 🚀 Quick Start
 
-### 1. Install Dependencies
+### Option 1: Use Live Demo (Recommended)
+Visit **https://ragindex.zyroi.com** to use the application immediately without any setup.
 
+### Option 2: Local Development Setup
+
+#### 1. Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Set Up Environment Variables
-
+#### 2. Set Up Environment Variables
 Create a `.env` file in the project root:
-
 ```env
 # OpenAI API Key
 OPENAI_API_KEY=sk-your-openai-key-here
@@ -30,23 +35,35 @@ OPENAI_API_KEY=sk-your-openai-key-here
 # Cohere API Key  
 COHERE_API_KEY=your-cohere-key-here
 
-# Google Sheets (optional - will be set up automatically)
-GOOGLE_SHEET_ID=1U34uloZe1S0E-T83LDOtKfgYuBipBrejGdEW8QVSguI
+# Google Sheets ID (for logging results)
+GOOGLE_SHEET_ID=your-sheet-id-here
 ```
 
-### 3. Validate Setup
+#### 3. Set Up Google Sheets (Optional)
+For result logging, place your service account JSON in:
+```
+credentials/rag-comparison-app-*.json
+```
 
+#### 4. Validate Setup
 ```bash
 python setup_validation.py
 ```
 
-This will test your API keys and Google Sheets connection.
-
-### 4. Run the App
-
+#### 5. Run Locally
 ```bash
 streamlit run app.py
 ```
+
+### Option 3: Production Deployment
+For Docker deployment on your own server:
+```bash
+# Quick deploy to production server
+chmod +x quick_deploy.sh
+./quick_deploy.sh
+```
+
+See `DEPLOYMENT_GUIDE.md` for detailed deployment instructions.
 
 ## 📋 Features
 
@@ -101,18 +118,28 @@ All results are automatically logged with:
 
 ```
 RAG-Indexing-Comparison/
-├── app.py                    # Main Streamlit application
-├── rag_pipeline.py           # Core pipeline orchestrator  
-├── document_processor.py     # Document parsing and chunking
-├── embedding_pipeline.py     # Embedding model integrations
-├── retrieval_system.py       # Vector, BM25, and hybrid retrieval
-├── sheets_logger.py          # Google Sheets logging
-├── setup_validation.py       # Setup and API validation
-├── requirements.txt          # Python dependencies
-├── .env                      # Environment variables (create this)
-├── .gitignore               # Git ignore file
-└── credentials/             # Google Sheets credentials (auto-created)
-    └── rag-comparison-app-*.json
+├── app.py                          # Main Streamlit application
+├── rag_pipeline.py                 # Core pipeline orchestrator  
+├── document_processor.py           # Document parsing and chunking
+├── embedding_pipeline.py           # Embedding model integrations
+├── retrieval_system.py             # Vector, BM25, and hybrid retrieval
+├── sheets_logger.py                # Google Sheets logging
+├── setup_validation.py             # Setup and API validation
+├── requirements.txt                # Python dependencies
+├── .env                           # Environment variables (create this)
+├── .gitignore                     # Git ignore file
+├── credentials/                   # Google Sheets credentials
+│   └── rag-comparison-app-*.json  
+├── logs/                          # Application logs (auto-created)
+├── Dockerfile                     # Docker container definition
+├── docker-compose.yml             # Docker orchestration
+├── deploy.sh                      # Local deployment script
+├── quick_deploy.sh               # SSH deployment script
+├── encode_credentials.py          # Credential encoding utility
+├── validate_deployment_simple.py  # Deployment validation
+├── README.md                      # This file
+├── DEPLOYMENT.md                  # Deployment guide
+└── DEPLOYMENT_GUIDE.md           # Comprehensive deployment docs
 ```
 
 ## 🔍 Usage Examples
