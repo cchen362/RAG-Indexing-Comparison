@@ -46,6 +46,10 @@ def load_amex_styling():
         .stMarkdown p {
             color: #333 !important;
         }
+        /* Force progress bar to maintain Amex blue in dark mode */
+        .stProgress > div > div > div > div {
+            background: linear-gradient(90deg, var(--amex-bright-blue) 0%, var(--amex-deep-blue) 100%) !important;
+        }
     }
     
     /* Amex GBT Professional Color System */
@@ -102,6 +106,11 @@ def load_amex_styling():
     section[data-testid="stSidebar"] {
         background: linear-gradient(180deg, var(--amex-deep-blue) 0%, var(--amex-charcoal) 100%);
         border-right: 3px solid var(--amex-bright-blue);
+    }
+    
+    /* Hide sidebar collapse button to keep sidebar fixed */
+    [data-testid="collapsedControl"] {
+        display: none !important;
     }
     
     section[data-testid="stSidebar"] > div {
@@ -213,8 +222,8 @@ def load_amex_styling():
     }
     
     /* SAFE: Progress Bars */
-    .stProgress > div > div {
-        background: linear-gradient(90deg, var(--amex-bright-blue) 0%, var(--amex-deep-blue) 100%);
+    .stProgress > div > div > div > div {
+        background: linear-gradient(90deg, var(--amex-bright-blue) 0%, var(--amex-deep-blue) 100%) !important;
         height: 8px;
         border-radius: 4px;
     }
