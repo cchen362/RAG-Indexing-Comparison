@@ -123,6 +123,12 @@ def load_amex_styling():
         display: none !important;
     }
     
+    /* Hide misleading Ctrl+Enter hint in text area */
+    [data-testid="InputInstructions"] {
+        display: none !important;
+        visibility: hidden !important;
+    }
+    
     section[data-testid="stSidebar"] > div {
         padding: 1rem;
     }
