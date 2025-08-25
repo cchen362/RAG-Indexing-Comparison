@@ -5,12 +5,18 @@ services:
     build: .
     container_name: rag-comparison-app
     ports:
-      - "8502:8501"  # Map to 8502 to avoid conflict with existing app on 8501
-    env_file:
-      - .env
+      - "8502:8501"  # Map to 8502 for ragindex.zyroi.com
+    environment:
+      # API Keys (injected from .env)
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - COHERE_API_KEY=${COHERE_API_KEY}
+      # Google Sheets Config
+      - GOOGLE_SHEET_ID=${GOOGLE_SHEET_ID:-1BcXm5tgOinYD9MwJ1IzRMGFALJtQ-4bKB8mR8KQ5xGE}
+      # Credentials injection (base64 encoded JSON)
+      - GOOGLE_CREDENTIALS_BASE64=${GOOGLE_CREDENTIALS_BASE64}
     volumes:
-      - ./credentials:/app/credentials:ro  # Mount credentials as read-only
-      - ./logs:/app/logs  # Mount logs for persistence if needed
+      - ./logs:/app/logs  # Mount logs for persistence
+      # Remove credentials volume - now injected via environment
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]

@@ -28,17 +28,45 @@ if [ ! -f ".env" ]; then
     exit 1
 fi
 
-# Check if credentials folder exists
-if [ ! -d "credentials" ]; then
-    echo "❌ credentials/ folder not found! Please ensure Google Sheets credentials are in credentials/ folder."
+# Check if credentials exist and encode them
+if [ ! -f "credentials/rag-comparison-app-2ebc99e885e4.json" ]; then
+    echo "❌ Google Sheets credentials not found!"
+    echo "Please ensure credentials/rag-comparison-app-2ebc99e885e4.json exists"
     exit 1
 fi
 
+# Encode credentials for Docker injection
+echo "🔐 Encoding Google Sheets credentials..."
+python3 encode_credentials.py
+
+if [ ! -f ".env.credentials" ]; then
+    echo "❌ Failed to encode credentials"
+    exit 1
+fi
+
+# Append encoded credentials to .env
+echo "" >> .env
+cat .env.credentials >> .env
+echo "✅ Credentials encoded and added to environment"
+
 echo "✅ Prerequisites check passed"
 
-# Stop existing container if running
-echo "🔄 Stopping existing containers..."
+# Clean up existing deployment
+echo "🧹 Cleaning up existing deployment..."
+
+# Stop existing containers
 docker-compose down --remove-orphans || true
+
+# Remove existing containers and images for fresh build
+if [ "$(docker ps -aq -f name=rag-comparison-app)" ]; then
+    echo "Removing existing container..."
+    docker rm -f rag-comparison-app || true
+fi
+
+if [ "$(docker images -q rag-indexing-comparison_rag-app)" ]; then
+    echo "Removing existing image for fresh build..."
+    docker rmi rag-indexing-comparison_rag-app || true
+fi
 
 # Build and start the application
 echo "🏗️  Building and starting the application..."
@@ -71,3 +99,7 @@ else
     docker-compose logs rag-app
     exit 1
 fi
+
+# Clean up temporary files
+echo "🧹 Cleaning up temporary files..."
+rm -f .env.credentials
