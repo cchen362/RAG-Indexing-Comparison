@@ -554,7 +554,7 @@ def render_query_section():
         run_comparison = st.button(
             "🚀 Run Comparison", 
             type="primary",
-            disabled=not (query and st.session_state.uploaded_docs and get_active_configurations())
+            disabled=not (st.session_state.uploaded_docs and get_active_configurations())
         )
     
     with col2:
